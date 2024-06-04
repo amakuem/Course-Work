@@ -1,11 +1,22 @@
 #include "mygraphicspixmapitem.h"
 
-MyGraphicsPixmapItem::MyGraphicsPixmapItem(QString iconPath, QString stats, QGraphicsItem *parent)
+MyGraphicsPixmapItem::MyGraphicsPixmapItem(QGraphicsScene *Scene, QString iconPath, QString stats, QGraphicsItem *parent)
     : QGraphicsPixmapItem(parent), infoBox(nullptr), infoText(nullptr), characterImage(nullptr) // Инициализировано
 {
     characterIconPath = iconPath;
     characterStats = stats;
+    scene = Scene;
+    infoBox = new QGraphicsRectItem(0, 0, 1920 / 2, 100); //428 / 2
+    infoBox->setBrush(Qt::black);
+    infoBox->setOpacity(0.3);
     setAcceptHoverEvents(true);
+
+    QRectF sceneRect = scene->sceneRect();
+    qreal x = sceneRect.width() / 2 - infoBox->rect().width() / 2;
+    qreal y = 0;
+    infoBox->setPos(x, y);
+    //scene->addItem(infoBox);
+
 }
 
 MyGraphicsPixmapItem::MyGraphicsPixmapItem(const QPixmap &pixmap, QGraphicsItem *parent)
@@ -16,60 +27,29 @@ MyGraphicsPixmapItem::MyGraphicsPixmapItem(const QPixmap &pixmap, QGraphicsItem 
 
 void MyGraphicsPixmapItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
-    if (!infoBox) {
-        infoBox = new QGraphicsRectItem(this);
-        infoBox->setRect(0, 0, 800, 180);
-        infoBox->setBrush(QBrush(Qt::black));
-    }
-    if (!infoText) {
-        infoText = new QGraphicsTextItem(infoBox);
-        infoText->setPlainText(this->characterStats); // Используйте характеристики персонажа
-        infoText->setDefaultTextColor(Qt::white);
-        infoText->setPos(100, 50); // Регулируйте позицию по мере необходимости
+    if(!scene->items().isEmpty())
+    {
+        scene->clear();
+        scene->update();
     }
 
-    if (!characterImage) {
-        characterImage = new QGraphicsPixmapItem(infoBox);
-        characterImage->setPixmap(QPixmap(this->characterIconPath)); // Используйте путь к иконке персонажа
-        characterImage->setPos(50, 50); // Регулируйте позицию по мере необходимости
+    if (!infoBox)
+    {
+        scene->addItem(infoBox);
     }
-    // if (!infoText) {
-    //     infoText = new QGraphicsTextItem(infoBox);
-    //     infoText->setPlainText("Character info"); // Замените на фактическую информацию о персонаже
-    //     infoText->setDefaultTextColor(Qt::white);
-    // }
 
-    // if (!characterImage) {
-    //     characterImage = new QGraphicsPixmapItem(infoBox);
-    //     characterImage->setPixmap(QPixmap(":/new/gif/kirbiAttack.gif")); // Замените на путь к изображению персонажа
-    //     characterImage->setPos(-100, -100); // Регулируйте позицию по мере необходимости
 
-    //     // Создаем рамку вокруг изображения
-    //     QGraphicsRectItem *border = new QGraphicsRectItem(characterImage->boundingRect(), characterImage);
-    //     border->setPen(QPen(Qt::white)); // Устанавливаем цвет рамки на белый
-    // }
-
-    qreal x = scene()->width() / 2 - infoBox->rect().width() / 2 - 150;
-    qreal y = scene()->height() - infoBox->rect().height();
-    infoBox->setPos(x, y);
-
-    infoBox->show();
-    infoText->show();
-    characterImage->show(); // Добавлено
+    QPixmap characterIcon(characterIconPath);
+    characterImage = new QGraphicsPixmapItem(characterIcon.scaled(200, 200, Qt::KeepAspectRatio));
+    characterImage->setScale(0.75);
+    //characterImage->setPos(infoBox->rect().center() - QPointF(characterIcon.width() / 2, characterIcon.height() / 2));
+    characterImage->setPos(scene->sceneRect().width() / 2 - infoBox->rect().width() / 2, 0);
+    scene->addItem(characterImage);
+    textItem = new QGraphicsTextItem(characterStats);
+    textItem->setPos(infoBox->rect().topRight() + QPointF(10, 0));
+    scene->addItem(textItem);
 
     QGraphicsPixmapItem::hoverEnterEvent(event);
 }
 
-// void MyGraphicsPixmapItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
-// {
-//     if (infoBox) {
-//         infoBox->hide();
-//     }
-
-//     if (infoText) {
-//         infoText->hide();
-//     }
-
-//     QGraphicsPixmapItem::hoverLeaveEvent(event);
-// }
 

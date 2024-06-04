@@ -6,9 +6,28 @@
         <file>hero/enemy/krolIdle.gif</file>
         <file>hero/enemy/krolAvatar.png</file>
         <file>hero/warrior/warriorAvatar.png</file>
+        <file>hero/rogach/rogachAttack.gif</file>
+        <file>hero/rogach/rogachAvatar.png</file>
+        <file>hero/rogach/rogachIdle.gif</file>
+        <file>hero/kungFuGirl/kungFuGirAttack.gif</file>
+        <file>hero/kungFuGirl/kungFuGirIdle.gif</file>
+        <file>hero/kungFuGirl/kungFuGirlAvatar.png</file>
+        <file>hero/kungFuGirl/fist.png</file>
+        <file>hero/rogach/spear.png</file>
+        <file>hero/warrior/sword.png</file>
+        <file>hero/kungFuGirl/kungFuGirlFace.png</file>
+        <file>hero/rogach/rogachFace.png</file>
+        <file>hero/warrior/warriorFace.png</file>
     </qresource>
     <qresource prefix="/backgrounds">
         <file>background/forest.gif</file>
         <file>background/down.gif</file>
+    </qresource>
+    <qresource prefix="/items">
+        <file>item/coins.png</file>
+        <file>item/electroSphere.jpg</file>
+        <file>item/fireSphere.jpg</file>
+        <file>item/healthAmulet.jpg</file>
+        <file>item/skull.jpg</file>
     </qresource>
 </RCC>

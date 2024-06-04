@@ -8,11 +8,13 @@
 class HealthBar: public QGraphicsItemGroup
 {
 public:
-    HealthBar(int X, int Y);
-    void updateHealthBar(int health);
+    HealthBar(int X, int Y, int MaxHealth);
+    void updateHealthBar(double health);
+    int getMaxedHealth();
 private:
     QGraphicsRectItem *backgroundHealthBar;
     QGraphicsRectItem *healthBar;
+    double maxHealth;
 };
 
 #endif // HEALTHBAR_H

@@ -9,7 +9,10 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    artifact.cpp \
+    artifactpixmapitem.cpp \
     clickablepixmapitem.cpp \
+    game.cpp \
     healthbar.cpp \
     hero.cpp \
     main.cpp \
@@ -18,7 +21,10 @@ SOURCES += \
     player.cpp
 
 HEADERS += \
+    artifact.h \
+    artifactpixmapitem.h \
     clickablepixmapitem.h \
+    game.h \
     healthbar.h \
     hero.h \
     mainwindow.h \

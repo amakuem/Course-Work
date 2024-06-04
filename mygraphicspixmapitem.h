@@ -7,11 +7,13 @@
 #include <QGraphicsSceneHoverEvent>
 #include <QBrush>
 #include <QGraphicsScene>
+#include <QGraphicsRectItem>
+#include <QGraphicsItemGroup>
 
 class MyGraphicsPixmapItem : public QGraphicsPixmapItem
 {
 public:
-    MyGraphicsPixmapItem(QString iconPath, QString stats, QGraphicsItem *parent = nullptr);
+    MyGraphicsPixmapItem(QGraphicsScene *Scene, QString iconPath, QString stats, QGraphicsItem *parent = nullptr);
     MyGraphicsPixmapItem(const QPixmap &pixmap, QGraphicsItem *parent = nullptr);
 
 protected:
@@ -19,10 +21,12 @@ protected:
     //void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
 
 private:
+    QGraphicsScene *scene;
     QString characterIconPath; // Путь к иконке персонажа
     QString characterStats;
     QGraphicsRectItem *infoBox;
     QGraphicsTextItem *infoText;
     QGraphicsPixmapItem *characterImage; // Добавлено
+    QGraphicsTextItem *textItem;
 };
 #endif // MYGRAPHICSPIXMAPITEM_H
